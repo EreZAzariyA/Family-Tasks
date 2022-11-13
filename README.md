@@ -1,8 +1,6 @@
 <div align="center">
-<p text-decoration:'underline'>
+ 
 # Family Tasks - Online Web 
-<p/>
-
 ***Project uploaded to AWS Amplify: [Family-Tasks](https://main.d37w3tomn9m7ta.amplifyapp.com)***
 
 ### Built With
