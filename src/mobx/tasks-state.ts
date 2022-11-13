@@ -12,10 +12,6 @@ class TasksState {
       @observable
       public houseMembers: HouseMemberModel[] = [];
 
-      @observable
-      public color: string = null;
-
-
       public constructor() {
 
             this.getTasks();
@@ -49,6 +45,9 @@ class TasksState {
       public addTask(task: TaskModel) {
             if (isEmptyOrSpaces(task?.taskDescription)) throw Error('Theres some empty fields. Check again... ( ;');
             task.id = uuid();
+            if (!this.tasks) {
+                  this.tasks = [];
+            }
             this.tasks.push(task);
             this.save('tasks', this.tasks);
       }
@@ -76,6 +75,9 @@ class TasksState {
             houseMember.memberId = uuid();
             if (this.houseMembers?.find(hm => hm.name === houseMember.name)) {
                   throw new Error("House member already exists");
+            }
+            if (!this.houseMembers) {
+                  this.houseMembers = []
             }
             this.houseMembers.push(houseMember);
             localStorage.setItem("houseMembers", JSON.stringify(this.houseMembers));

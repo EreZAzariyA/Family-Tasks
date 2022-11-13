@@ -1,6 +1,5 @@
-import { SyntheticEvent } from "react";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { tasksState } from "../../mobx/tasks-state";
 import { HouseMemberModel } from "../../Models/house-member-model"
 

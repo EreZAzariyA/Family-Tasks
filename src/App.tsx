@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React from 'react';
+import { Container, Row } from 'react-bootstrap';
 import { Routes, Route } from 'react-router-dom';
 import Header from './Components/Layout-Area/Header';
 import HomePage from './Components/Pages/Home-Page';
@@ -20,12 +20,6 @@ const style: React.CSSProperties = {
 }
 
 function App() {
-
-  useEffect(() => {
-    return () => {
-      localStorage.clear();
-    }
-  });
 
   return (
     <Container fluid style={style}>

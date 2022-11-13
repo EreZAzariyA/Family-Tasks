@@ -7,7 +7,7 @@ import { TaskModel } from "../../Models/task-model";
 import TaskCard from "./TaskCard";
 
 export const pageTitleStyle: React.CSSProperties = {
-      fontFamily: 'cursive',
+      fontFamily: 'fantasy',
       textDecoration: 'underline'
 }
 
