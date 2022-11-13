@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Container, Form, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { tasksState } from "../../mobx/tasks-state";
 import { TaskModel } from "../../Models/task-model";
-import TaskCard from "../Tasks-Area/TaskCard";
+import TaskCard from "./TaskCard";
 
 export const pageTitleStyle: React.CSSProperties = {
       fontFamily: 'cursive',
@@ -22,7 +22,7 @@ const TasksList = () => {
             if (fromLast === 'true') {
                   (switchBtn as HTMLInputElement).checked = true;
                   setAsTable(true);
-            } else {
+            } else if (fromLast === 'false') {
                   setAsTable(false);
             }
       }, []);
@@ -46,12 +46,12 @@ const TasksList = () => {
       }
 
       const editTask = (e: SyntheticEvent) => {
-            const taskId = +(e.target as HTMLInputElement).value;
-            navigate('/edit-task/' + taskId);
+            const taskId = (e.target as HTMLInputElement).value;
+            navigate('/update-task/' + taskId);
       }
 
       const deleteTask = (e: SyntheticEvent) => {
-            const taskId = +(e.target as HTMLInputElement).value;
+            const taskId = (e.target as HTMLInputElement).value;
             const answer = window.confirm("Are you sure");
             if (answer) {
                   tasksState.deleteTask(taskId);
@@ -59,13 +59,13 @@ const TasksList = () => {
             }
       }
 
-      const getMemberByMemberId = (memberId: number) => {
-            const member = tasksState.houseMembers?.find(member => member.memberId = memberId);
-            return member;
+      const getMemberByMemberId = (memberId: string) => {
+            const member = tasksState.houseMembers?.find(member => member.memberId === memberId);
+            return member?.name;
       }
 
       return (
-            <Container>
+            <Container fluid>
                   <h3 style={pageTitleStyle}>Tasks List</h3>
 
                   {(tasks?.length === 0 || !tasks) &&
@@ -103,7 +103,7 @@ const TasksList = () => {
                                                 {tasks?.map(task =>
                                                       <tr key={task?.id}>
                                                             <td>{task?.createDate}</td>
-                                                            <td>{getMemberByMemberId(task?.memberId)?.name}</td>
+                                                            <td>{getMemberByMemberId(task?.memberId)}</td>
                                                             <td>{task?.taskDescription}</td>
                                                             <td>
                                                                   <ButtonGroup size="sm">

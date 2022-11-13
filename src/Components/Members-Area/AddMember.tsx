@@ -65,7 +65,7 @@ const AddHouseMember = () => {
                               </span>
                         </FloatingLabel>
 
-                        <Button variant="success" type="submit">
+                        <Button variant="success" type="submit" disabled={!formState.isValid}>
                               Add Member <AiOutlineArrowRight />
                         </Button>
                   </Form>

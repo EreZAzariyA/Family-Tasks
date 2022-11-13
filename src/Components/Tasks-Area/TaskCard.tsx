@@ -9,13 +9,13 @@ interface TaskCardProps {
 const TaskCard = (props: TaskCardProps) => {
       const navigate = useNavigate();
 
-      const getMemberByMemberId = (memberId: number) => {
-            const member = tasksState.houseMembers.find(member => member.memberId = memberId);
+      const getMemberByMemberId = (memberId: string) => {
+            const member = tasksState.houseMembers?.find(member => member.memberId === memberId);
             return member?.name;
       }
 
       const editTask = () => {
-            navigate('/edit-task/' + props.task.id);
+            navigate('/update-task/' + props.task.id);
       }
       const deleteTask = () => {
             const answer = window.confirm("Are you sure");
@@ -40,7 +40,7 @@ const TaskCard = (props: TaskCardProps) => {
                               Task-Description
                         </Card.Subtitle>
                         <Card.Text>
-
+                              {props.task.taskDescription}
                         </Card.Text>
                   </Card.Body>
                   <Card.Footer>

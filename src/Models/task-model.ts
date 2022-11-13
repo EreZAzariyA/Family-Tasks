@@ -1,6 +1,6 @@
 export class TaskModel {
-      public id: number;
+      public id: string;
       public taskDescription: string;
       public createDate: string;
-      public memberId: number;
+      public memberId: string;
 }

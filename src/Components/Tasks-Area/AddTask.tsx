@@ -6,10 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { tasksState } from "../../mobx/tasks-state";
 import { HouseMemberModel } from "../../Models/house-member-model";
 import { TaskModel } from "../../Models/task-model";
-import { formStyle, errStyle } from "./AddHouseMember";
+import { formStyle, errStyle } from "../Members-Area/AddMember";
 
 const AddTask = () => {
-
       const { register, handleSubmit, formState } = useForm<TaskModel>();
       const [houseMembers, setHouseMembers] = useState<HouseMemberModel[]>();
       const [date, setDate] = useState<Date>();
@@ -17,20 +16,19 @@ const AddTask = () => {
       const navigate = useNavigate();
 
       useMemo(() => {
+            const houseMembers = tasksState.houseMembers;
+            setHouseMembers(houseMembers);
+
             const interVal = setInterval(() => {
                   const now = new Date();
                   setDate(now);
             }, 1000);
             setTaskCreateDate(moment(date).format("YYYY-MM-DD, HH:mm:ss"));
-            return () => {
-                  clearInterval(interVal);
-            }
-      }, [date])
 
-      useMemo(() => {
-            const houseMembers = tasksState.houseMembers;
-            setHouseMembers(houseMembers);
-      }, []);;
+            return () => clearInterval(interVal);
+
+      }, [date]);
+
 
       useEffect(() => {
             if (houseMembers?.length === 0 || !houseMembers) {
@@ -54,7 +52,9 @@ const AddTask = () => {
 
       return (
             <Container>
-                  <Form noValidate style={formStyle} onSubmit={handleSubmit(submit)}>
+                  <Form noValidate
+                        style={formStyle}
+                        onSubmit={handleSubmit(submit)}>
 
                         <FloatingLabel
                               label='Task-Description'
@@ -93,18 +93,25 @@ const AddTask = () => {
                                     {...register('memberId', {
                                           required: { value: true, message: "Missing House-Member" }
                                     })}>
-                                    <option value="" disabled>Select House Member</option>
+                                    <option
+                                          value=""
+                                          disabled>
+                                          Select House Member
+                                    </option>
                                     {houseMembers?.map(houseMember =>
-                                          <option key={houseMember?.memberId} value={houseMember?.memberId}>{houseMember?.name}</option>
+                                          <option
+                                                key={houseMember.memberId}
+                                                value={houseMember.memberId}>
+                                                {houseMember.name}
+                                          </option>
                                     )}
                               </Form.Select>
-
                               <span className="mb-2" style={errStyle}>
                                     {formState.errors.memberId?.message}
                               </span>
                         </FloatingLabel>
 
-                        <Button variant="success" type="submit">
+                        <Button variant="success" type="submit" disabled={!formState.isValid}>
                               Add Task ✔
                         </Button>
                   </Form>
