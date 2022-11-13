@@ -54,7 +54,7 @@ class TasksState {
       //Add a new house member to the house members list:
       @action
       public addHouseMember(houseMember: HouseMemberModel) {
-            houseMember.memberId = this.houseMembers.length + 1;
+            houseMember.memberId = this.houseMembers?.length + 1;
             if (this.houseMembers?.find(hm => hm.name === houseMember.name)) {
                   throw new Error("House member already exists");
             }
